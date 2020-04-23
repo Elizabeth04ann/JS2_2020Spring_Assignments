@@ -122,11 +122,11 @@ nav {
     height: 14em;
     transition: 0.2s; }
   .product-card .mensAthleticShoes {
-    background-image: url("images/mensRedWhiteShoes.jpg"); }
+    background-image: url("mensRedWhiteShoes.jpg"); }
   .product-card .womensRunningShoes {
-    background-image: url("images/redAtheleticShoesWoman.jpg"); }
+    background-image: url("redAtheleticShoesWoman.jpg"); }
   .product-card .oldSchool {
-    background-image: url("images/vansOldSchool.jpg");
+    background-image: url("vansOldSchool.jpg");
      
       
   }
