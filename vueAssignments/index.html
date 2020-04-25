@@ -1,75 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Shopping List App</title>
-        <link rel="stylesheet" href="main.css">
-    </head>
-    <body>
-        <div id="shopping-list">
-            <div class="header">
-                <h1>{{ header.toLocaleUpperCase() }}</h1>
-                <button v-if="state === 'default'" class="btn btn-primary" @click="changeState('edit')">Add Item</button>
-                <button v-else class="btn btn-cancel" @click="changeState('default')">Cancel Adding Item</button>
-            </div>
-            <div v-if="state === 'edit'" class="add-item-form">
-                <input v-model="newItem" type="text" placeholder="Add an item" @keyup.enter="saveItem">
-                <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">Save Item</button>
-            </div>
-            <ul>
-                <li v-for="item in items" :class="{strikeout: item.purchased}" @click="togglePurchased(item)">{{ item.label }}</li>
-                <li v-for="item in reversedItems" :class="{strikeout: item.purchased}" @click="togglePurchased(item)">{{ item.label }}</li>
-            </ul>
-            <p v-if="items.length === 0">Nice job! You've bought all your items.</p>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue.js Components Fundamentals</title>
+</head>
+
+<body>
+  <div id="app" class="container mx-auto py-6">
+    <div class="content">
+      <h1 class="title">Coffee Plans</h1>
+
+      <h2 class="subtitle">
+        We travel the world to source the very best single origin coffee for you
+      </h2>
+
+      <plan-picker></plan-picker>
+    </div>
+  </div>
+
+  <script type="text/x-template" id="plan-picker-template">
+    <div class="plans">
+      <plan-picker-item v-for="plan in plans" :name="plan" @select="selectPlan" :selected-plan="selectedPlan"></plan>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="plan-picker-item-template">
+    <div @click="select" class="plan" :class="{'active-plan': isSelected}">
+        <div class="description">
+          <span class="title">
+            {{name}}
+          </span>
         </div>
-        <script src="https://unpkg.com/vue"></script>
-        <script>
-            var shoppingList = new Vue({
-                el: '#shopping-list',
-                data: {
-                    state: 'default',
-                    header: 'shopping list app',
-                    newItem: '',
-                    items: [
-                        {
-                            label: '10 party hats',
-                            purchased: false,
-                            highPriority: false,
-                        },
-                        {
-                            label: '2 board games',
-                            purchased: true,
-                            highPriority: false,
-                        },
-                        {
-                            label: '20 cups',
-                            purchased: false,
-                            highPriority: false,
-                        },
-                    ]
-                },
-                computed: {
-                    reversedItems() {
-                        return this.items.slice(0).reverse();
-                    }
-                },
-                methods: {
-                    saveItem: function() {
-                        this.items.push({
-                            label: this.newItem,
-                            purchased: false,
-                        });
-                        this.newItem = '';
-                    },
-                    changeState: function(newState) {
-                        this.state = newState;
-                        this.newItem = '';
-                    },
-                    togglePurchased: function(item) {
-                        item.purchased = !item.purchased;
-                    }
-                }
-            })
-        </script>
-    </body>
+      </div>
+  </script>
+
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="style.css">
+</body>
+
 </html>
